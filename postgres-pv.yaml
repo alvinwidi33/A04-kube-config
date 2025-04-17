@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: postgres-pv-medium
+  labels:
+    type: local
+    node: medium
+spec:
+  storageClassName: manual-medium
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/mnt/data"
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: postgres-pv-nano
+  labels:
+    type: local
+    node: nano
+spec:
+  storageClassName: manual-nano
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/mnt/data"
