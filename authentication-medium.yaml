@@ -1,0 +1,67 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: authentication-medium
+  namespace: authentication-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: authentication
+      node: medium
+  template:
+    metadata:
+      labels:
+        app: authentication
+        node: medium
+    spec:
+      nodeSelector:
+        node-type: medium
+      containers:
+      - name: authentication
+        image: alvinwidi33/authentication:latest
+        ports:
+        - containerPort: 8000
+        env:
+        - name: TENANT_ID
+          value: "47dd6b24-0b23-46b0-a662-776158d089ba"
+        - name: JWT_SECRET
+          value: "auth_ms_jwt_secret"
+        - name: DB_HOST
+          value: "db-medium"
+        - name: DB_PORT
+          value: "5432"
+        - name: DB_USER
+          valueFrom:
+            secretKeyRef:
+              name: db-secret
+              key: POSTGRES_USER
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: db-secret
+              key: POSTGRES_PASSWORD
+        - name: DB_NAME
+          valueFrom:
+            secretKeyRef:
+              name: db-secret
+              key: POSTGRES_DB
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "100m"
+          limits:
+            memory: "256Mi"
+            cpu: "200m"
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 8000
+          initialDelaySeconds: 10
+          periodSeconds: 5
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8000
+          initialDelaySeconds: 15
+          periodSeconds: 10
