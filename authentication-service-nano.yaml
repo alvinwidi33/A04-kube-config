@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: authentication-nano
+  namespace: authentication-app
+spec:
+  selector:
+    app: authentication
+    node: nano
+  ports:
+  - port: 8000
+    targetPort: 8000
+    nodePort: 30002
+  type: NodePort
