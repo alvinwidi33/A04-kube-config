@@ -3,17 +3,16 @@ import { sleep, check } from 'k6';
 
 export const options = {
   stages: [
-    { duration: '1m', target: 5 },   // Ramp-up to 5 users over 1 minute
-    { duration: '2m', target: 20 },  // Ramp-up to 20 users over 2 minutes
-    { duration: '1m', target: 0 },   // Ramp-down to 0 users over 1 minute
+    { duration: '1m', target: 5 },
+    { duration: '2m', target: 20 },
+    { duration: '1m', target: 0 },
   ],
   thresholds: {
-    http_req_duration: ['p(95)<500'], // 95% of requests should be below 500ms
+    http_req_duration: ['p(95)<500'],
   },
 };
 
 export default function () {
-  // Replace with actual API endpoint
   const response = http.get('http://<WORKER_NANO_PUBLIC_IP>:30002/health');
   
   check(response, {
