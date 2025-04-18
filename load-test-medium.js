@@ -1,19 +1,19 @@
+cat > load-test-medium.js << EOF
 import http from 'k6/http';
 import { sleep, check } from 'k6';
 
 export const options = {
   stages: [
-    { duration: '1m', target: 10 },  // Ramp-up to 10 users over 1 minute
-    { duration: '3m', target: 50 },  // Ramp-up to 50 users over 3 minutes
-    { duration: '1m', target: 0 },   // Ramp-down to 0 users over 1 minute
+    { duration: '1m', target: 10 },
+    { duration: '3m', target: 50 },
+    { duration: '1m', target: 0 },
   ],
   thresholds: {
-    http_req_duration: ['p(95)<500'], // 95% of requests should be below 500ms
+    http_req_duration: ['p(95)<500'],
   },
 };
 
 export default function () {
-  // Replace with actual API endpoint
   const response = http.get('http://<WORKER_MEDIUM_PUBLIC_IP>:30001/health');
   
   check(response, {
@@ -22,3 +22,4 @@ export default function () {
   
   sleep(1);
 }
+EOF
