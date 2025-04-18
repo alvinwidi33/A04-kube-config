@@ -1,4 +1,3 @@
-cat > load-test-medium.js << EOF
 import http from 'k6/http';
 import { sleep, check } from 'k6';
 
@@ -22,4 +21,3 @@ export default function () {
   
   sleep(1);
 }
-EOF
