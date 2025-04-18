@@ -1,0 +1,10 @@
+Statistik Nano Deployment:
+Jumlah Replicas:
+     27 2
+     33 1
+
+Penggunaan CPU maksimum:
+96%
+
+Penggunaan Memory maksimum:
+85 Mi

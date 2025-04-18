@@ -1,0 +1,9 @@
+Statistik Medium Deployment:
+Jumlah Replicas:
+     60 1
+
+Penggunaan CPU maksimum:
+44%
+
+Penggunaan Memory maksimum:
+118 Mi
